@@ -1,6 +1,7 @@
 package com.harrybro.basicmvc.api
 
 import com.harrybro.basicmvc.dto.UserRequestDto
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -14,7 +15,7 @@ class TestApiController {
     }
 
     @GetMapping("/hello")   // http://localhost:8080/api/hello?item=harry&item=bro
-    fun getArrayParam(@RequestParam item: Array<String>): ResponseEntity<Array<String>>{
+    fun getArrayParam(@RequestParam item: Array<String>): ResponseEntity<Array<String>> {
         return ResponseEntity.ok(item)
     }
 
@@ -22,6 +23,17 @@ class TestApiController {
     fun getBody(request: UserRequestDto): ResponseEntity<UserRequestDto> {
         println(request)
         return ResponseEntity.ok(request);
+    }
+
+    @PostMapping("users")
+    fun userSave(@RequestBody request: UserRequestDto): ResponseEntity<UserRequestDto> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(request)
+    }
+
+    @PutMapping("users/{id}")
+    fun userUpdate(@PathVariable id:String): ResponseEntity<String> {
+        println(id)
+        return ResponseEntity.ok("Success update user.")
     }
 
 }
