@@ -1,6 +1,6 @@
 package com.harrybro.basicmvc.api
 
-import com.harrybro.basicmvc.dto.UserRequestDto
+import com.harrybro.basicmvc.dto.UserDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,13 +20,13 @@ class TestApiController {
     }
 
     @GetMapping("/users") // http://localhost:8080/api/users?name=harry&age=3&email=abc@test.com
-    fun getBody(request: UserRequestDto): ResponseEntity<UserRequestDto> {
+    fun getBody(request: UserDto.SignUpRequest): ResponseEntity<UserDto.SignUpRequest> {
         println(request)
         return ResponseEntity.ok(request);
     }
 
     @PostMapping("users")
-    fun userSave(@RequestBody request: UserRequestDto): ResponseEntity<UserRequestDto> {
+    fun userSave(@RequestBody request: UserDto.SignUpRequest): ResponseEntity<UserDto.SignUpRequest> {
         return ResponseEntity.status(HttpStatus.CREATED).body(request)
     }
 
